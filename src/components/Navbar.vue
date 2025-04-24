@@ -16,8 +16,8 @@
         class="md:flex flex-col md:flex-row  md:items-center md:space-x-4 text-white ml-0 md:ml-4 md:py-1  p-4 md:p-0"
       >
         <li><a href="/companies" class="block py-2 md:py-0 hover:text-black hover:underline">Companies</a></li>
-        <li><a href="#" class="block py-2 md:py-0 hover:text-black hover:underline">Projects</a></li>
-        <li><a href="#" class="block py-2 md:py-0 hover:text-black hover:underline">Tasks</a></li>
+        <li><a href="/projects" class="block py-2 md:py-0 hover:text-black hover:underline">Projects</a></li>
+        <li><a href="/tasks" class="block py-2 md:py-0 hover:text-black hover:underline">Tasks</a></li>
         <li><a href="#" class="block py-2 md:py-0 hover:text-black hover:underline">Contacts</a></li>
         <li><a href="#" class="block py-2 md:py-0 hover:text-black hover:underline">User Admin</a></li>
         <li><a href="#" class="block py-2 md:py-0 hover:text-black hover:underline">System Admin</a></li>

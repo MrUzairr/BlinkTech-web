@@ -1,10 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '@/pages/HomeView.vue';
 import CompaniesView from '@/pages/company/Company.vue';
 import AddCompanyView from '@/pages/company/AddCompany.vue';
+import ProjectsView from '@/pages/project/Project.vue';
+import AddProjectView from '@/pages/project/AddProject.vue';
+import AddTaskView from '@/pages/task/Task.vue';
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    // Home
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView
+    },
+    // Company
     {
       path: '/companies',
       name: 'companies',
@@ -15,6 +27,24 @@ const router = createRouter({
       name: 'add-company',
       component: AddCompanyView
     },
+    // Project
+    {
+      path: '/projects',
+      name: 'projects',
+      component: ProjectsView
+    },
+    {
+      path: '/projects/add',
+      name: 'add-projects',
+      component: AddProjectView
+    },
+    // Task
+    {
+      path: '/tasks',
+      name: 'add-tasks',
+      component: AddTaskView
+    },
+
     // Add other routes as needed
   ]
 });
