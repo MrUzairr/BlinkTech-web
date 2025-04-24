@@ -6,25 +6,19 @@
         <img src="@/assets/handshake.png" alt="Company Icon" class="w-6 h-6 mr-2" />
         Companies
       </h2>
-      <div class="flex flex-col md:flex-row md:items-center gap-2">
-        <div class="flex items-center gap-2">
+      <div class="flex flex-col md:flex-row md:items-center gap-2 w-full md:w-auto">
+        <div class="flex items-center gap-2 w-full md:w-auto">
           <label class="font-semibold">Search:</label>
           <input v-model="searchQuery" type="text" class="border px-2 py-1 w-full md:w-auto" placeholder="Search..." />
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 w-full md:w-auto">
           <label class="font-semibold">Owner filter:</label>
           <select v-model="ownerFilter" class="border px-2 py-1 w-full md:w-auto">
             <option value="All">All</option>
-            <option value="Client">Client</option>
-            <option value="Vendor">Vendor</option>
-            <option value="Supplier">Supplier</option>
-            <option value="Consultant">Consultant</option>
-            <option value="Government">Government</option>
-            <option value="Internal">Internal</option>
-            <option value="Not Applicable">Not Applicable</option>
+            <option v-for="tab in filterTabs" :key="tab" :value="tab">{{ tab }}</option>
           </select>
         </div>
-        <router-link to="/companies/add" class="bg-blue-500 text-white px-4 py-1 rounded w-full md:w-auto">
+        <router-link to="/companies/add" class="bg-blue-500 text-white px-4 py-1 rounded text-center">
           New Company
         </router-link>
       </div>
@@ -35,8 +29,8 @@
       <button
         v-for="tab in tabs"
         :key="tab"
-        @click="activeTab = tab"
-        :class="['px-4 py-2 border rounded', activeTab === tab ? 'bg-blue-500 text-white' : 'bg-gray-200']"
+        @click="handleTabClick(tab)"
+        :class="['px-4 py-2 border rounded', ownerFilter === tab || (tab === 'All Companies' && ownerFilter === 'All') ? 'bg-blue-500 text-white' : 'bg-gray-200']"
       >
         {{ tab }}
       </button>
@@ -85,12 +79,25 @@ const companies = ref([
 ]);
 
 // Tabs
-const tabs = ref(['All Companies', 'Client', 'Vendor', 'Supplier', 'Consultant', 'Government', 'Internal', 'Not Applicable']);
-const activeTab = ref('All Companies');
+const tabs = ref([
+  'All Companies',
+  'Client',
+  'Vendor',
+  'Supplier',
+  'Consultant',
+  'Government',
+  'Internal',
+  'Not Applicable',
+]);
 
-// Filters
+const filterTabs = tabs.value.slice(1); // Tabs excluding "All Companies"
+
 const searchQuery = ref('');
 const ownerFilter = ref('All');
+
+const handleTabClick = (tab) => {
+  ownerFilter.value = tab === 'All Companies' ? 'All' : tab;
+};
 
 const filteredCompanies = computed(() => {
   return companies.value.filter(company => {
@@ -100,6 +107,7 @@ const filteredCompanies = computed(() => {
   });
 });
 </script>
+
 
 
 
