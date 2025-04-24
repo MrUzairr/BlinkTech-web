@@ -24,7 +24,9 @@
             <option value="Not Applicable">Not Applicable</option>
           </select>
         </div>
-        <button class="bg-blue-500 text-white px-4 py-1 rounded w-full md:w-auto">New Company</button>
+        <router-link to="/companies/add" class="bg-blue-500 text-white px-4 py-1 rounded w-full md:w-auto">
+          New Company
+        </router-link>
       </div>
     </div>
 
@@ -98,8 +100,6 @@ const filteredCompanies = computed(() => {
   });
 });
 </script>
-
-
 
 
 
