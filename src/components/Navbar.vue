@@ -15,7 +15,7 @@
   class="fixed top-16 left-0 w-full flex-col z-50 p-4 
          bg-[#808080] text-white 
          md:static md:flex md:flex-row md:items-center md:space-x-4 
-         md:py-1 md:pl-5"
+         md:py-1 md:pl-4"
 >
 
     <li><a href="/companies" class="block py-2 md:py-0 hover:text-gray-300 md:hover:text-black md:hover:underline">Companies</a></li>
