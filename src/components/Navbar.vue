@@ -21,7 +21,7 @@
     <li><a href="/companies" class="block py-2 md:py-0 hover:text-gray-300 md:hover:text-black md:hover:underline">Companies</a></li>
     <li><a href="/projects" class="block py-2 md:py-0 hover:text-gray-300 md:hover:text-black md:hover:underline">Projects</a></li>
     <li><a href="/tasks" class="block py-2 md:py-0 hover:text-gray-300 md:hover:text-black md:hover:underline">Tasks</a></li>
-    <li><a href="#" class="block py-2 md:py-0 hover:text-gray-300 md:hover:text-black md:hover:underline">Contacts</a></li>
+    <li><a href="/contacts" class="block py-2 md:py-0 hover:text-gray-300 md:hover:text-black md:hover:underline">Contacts</a></li>
     <li><a href="#" class="block py-2 md:py-0 hover:text-gray-300 md:hover:text-black md:hover:underline">User Admin</a></li>
     <li><a href="#" class="block py-2 md:py-0 hover:text-gray-300 md:hover:text-black md:hover:underline">System Admin</a></li>
     <li><a href="#" class="block py-2 md:py-0 hover:text-gray-300 md:hover:text-black md:hover:underline">Invoice</a></li>

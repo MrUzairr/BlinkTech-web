@@ -15,23 +15,3 @@ import Navbar from '@/components/Navbar.vue';
   </div>
 </template>
 
-
-<!-- <template>
-  <div>
-    <router-view></router-view> 
-  </div>
-</template>
-<script setup>
-import { RouterView } from 'vue-router';
-import Navbar from '@/components/Navbar.vue';
-import Company from '@/pages/Company.vue';
-</script> -->
-
-
-<!-- <template>
-  <Home/>
-</template>
-
-<script setup>
-  import Home from "@/pages/Home.vue";
-</script> -->

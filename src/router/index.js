@@ -5,6 +5,8 @@ import AddCompanyView from '@/pages/company/AddCompany.vue';
 import ProjectsView from '@/pages/project/Project.vue';
 import AddProjectView from '@/pages/project/AddProject.vue';
 import AddTaskView from '@/pages/task/Task.vue';
+import AddContactView from '@/pages/contact/AddContactForm.vue';
+import ContactList from '@/pages/contact/ContactList.vue';
 
 
 const router = createRouter({
@@ -44,7 +46,16 @@ const router = createRouter({
       name: 'add-tasks',
       component: AddTaskView
     },
-
+    {
+      path: '/contacts',
+      name: 'contacts',
+      component: ContactList
+    },
+    {
+      path: '/contacts/add',
+      name: 'add-contacts',
+      component: AddContactView
+    },
     // Add other routes as needed
   ]
 });
