@@ -1,26 +1,32 @@
 <template>
     <div class="p-4 bg-gray-100 min-h-screen">
       <!-- Header Filters -->
-      <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
         <div>
           <span class="font-bold text-xl text-blue-800">🧩 Tasks</span>
         </div>
   
-        <div class="flex flex-wrap items-center gap-2 text-sm">
-          <label>Search: <input type="text" v-model="search" class="border p-1" /></label>
-          <label>User: 
-            <select v-model="selectedUser" class="border p-1">
+        <div class="flex flex-col md:flex-row flex-wrap items-start md:items-center gap-2 text-sm">
+          <label class="flex flex-col md:flex-row items-start md:items-center gap-1">
+            <span>Search:</span>
+            <input type="text" v-model="search" class="border p-1 w-full md:w-auto" />
+          </label>
+          <label class="flex flex-col md:flex-row items-start md:items-center gap-1">
+            <span>User:</span>
+            <select v-model="selectedUser" class="border p-1 w-full md:w-auto">
               <option v-for="user in users" :key="user">{{ user }}</option>
             </select>
           </label>
-          <label>Company: 
-            <select v-model="selectedCompany" class="border p-1">
+          <label class="flex flex-col md:flex-row items-start md:items-center gap-1">
+            <span>Company:</span>
+            <select v-model="selectedCompany" class="border p-1 w-full md:w-auto">
               <option>All Companies</option>
               <option>Company A</option>
             </select>
           </label>
-          <label>Task Filter: 
-            <select v-model="selectedFilter" class="border p-1">
+          <label class="flex flex-col md:flex-row items-start md:items-center gap-1">
+            <span>Task Filter:</span>
+            <select v-model="selectedFilter" class="border p-1 w-full md:w-auto">
               <option>My Unfinished Tasks</option>
               <option>All Tasks</option>
             </select>
@@ -28,63 +34,66 @@
         </div>
       </div>
   
-      <!-- Tasks Table -->
-      <table class="w-full border border-collapse text-sm bg-white">
-        <thead class="bg-blue-900 text-white">
-          <tr>
-            <th class="p-1 border">Pin</th>
-            <th class="p-1 border">New Log</th>
-            <th class="p-1 border">Work</th>
-            <th class="p-1 border">P</th>
-            <th class="p-1 border">Task Name</th>
-            <th class="p-1 border">Task Creator</th>
-            <th class="p-1 border">Assigned Users</th>
-            <th class="p-1 border">Start Date</th>
-            <th class="p-1 border">Duration</th>
-            <th class="p-1 border">Finish Date</th>
-            <th class="p-1 border">Last Update</th>
-            <th class="p-1 border">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <template v-for="group in groupedTasks" :key="group.project">
-            <tr class="bg-gray-100 font-bold text-sm">
-              <td colspan="12" class="p-1 border text-orange-800">
-                Dr. {{ group.project }} <span class="ml-2">6%</span>
-              </td>
+      <!-- Tasks Table (with horizontal scroll on mobile) -->
+      <div class="overflow-x-auto">
+        <table class="min-w-full border border-collapse text-sm bg-white">
+          <thead class="bg-blue-900 text-white">
+            <tr>
+              <th class="p-2 border">Pin</th>
+              <th class="p-2 border">New Log</th>
+              <th class="p-2 border">Work</th>
+              <th class="p-2 border">P</th>
+              <th class="p-2 border">Task Name</th>
+              <th class="p-2 border">Task Creator</th>
+              <th class="p-2 border">Assigned Users</th>
+              <th class="p-2 border">Start Date</th>
+              <th class="p-2 border">Duration</th>
+              <th class="p-2 border">Finish Date</th>
+              <th class="p-2 border">Last Update</th>
+              <th class="p-2 border">Actions</th>
             </tr>
-            <tr v-for="task in group.tasks" :key="task.id" :class="getStatusClass(task)">
-              <td class="border p-1">📌</td>
-              <td class="border p-1">✏️</td>
-              <td class="border p-1">Log</td>
-              <td class="border p-1">10%</td>
-              <td class="border p-1">{{ task.name }}</td>
-              <td class="border p-1">{{ task.creator }}</td>
-              <td class="border p-1">{{ task.assigned }}</td>
-              <td class="border p-1">{{ task.start }}</td>
-              <td class="border p-1">{{ task.duration }}</td>
-              <td class="border p-1">{{ task.finish }}</td>
-              <td class="border p-1">-</td>
-              <td class="border p-1 space-x-1">
-                <button class="border px-1">Reports</button>
-                <button class="border px-1">Gantt Chart</button>
-              </td>
-            </tr>
-          </template>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <template v-for="group in groupedTasks" :key="group.project">
+              <tr class="bg-gray-100 font-bold text-sm">
+                <td colspan="12" class="p-2 border text-orange-800">
+                  Dr. {{ group.project }} <span class="ml-2">6%</span>
+                </td>
+              </tr>
+              <tr v-for="task in group.tasks" :key="task.id" :class="getStatusClass(task)">
+                <td class="border p-2">📌</td>
+                <td class="border p-2">✏️</td>
+                <td class="border p-2">Log</td>
+                <td class="border p-2">10%</td>
+                <td class="border p-2">{{ task.name }}</td>
+                <td class="border p-2">{{ task.creator }}</td>
+                <td class="border p-2">{{ task.assigned }}</td>
+                <td class="border p-2">{{ task.start }}</td>
+                <td class="border p-2">{{ task.duration }}</td>
+                <td class="border p-2">{{ task.finish }}</td>
+                <td class="border p-2">-</td>
+                <td class="border p-2 space-x-1">
+                  <button class="border px-2 py-1 text-xs">Reports</button>
+                  <button class="border px-2 py-1 text-xs">Gantt Chart</button>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
   
       <!-- Key -->
-      <div class="mt-4 text-sm">
-        <strong>Key:</strong>
-        <span class="ml-2 bg-gray-200 px-1">Future Task</span>
-        <span class="ml-2 bg-green-100 px-1">Started and on time</span>
-        <span class="ml-2 bg-yellow-200 px-1">Should have started</span>
-        <span class="ml-2 bg-red-300 px-1">Overdue</span>
-        <span class="ml-2 bg-green-300 px-1">Done</span>
+      <div class="mt-4 text-sm flex flex-wrap gap-2">
+        <strong class="w-full">Key:</strong>
+        <span class="bg-gray-200 px-2 py-1 rounded">Future Task</span>
+        <span class="bg-green-100 px-2 py-1 rounded">Started and on time</span>
+        <span class="bg-yellow-200 px-2 py-1 rounded">Should have started</span>
+        <span class="bg-red-300 px-2 py-1 rounded">Overdue</span>
+        <span class="bg-green-300 px-2 py-1 rounded">Done</span>
       </div>
     </div>
   </template>
+  
   
   <script setup>
   import { ref, computed } from 'vue'
