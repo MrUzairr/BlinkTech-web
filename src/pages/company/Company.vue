@@ -64,6 +64,83 @@
 </template>
 
 <script setup>
+import { ref, computed, onMounted } from 'vue';
+import axios from 'axios';
+
+// API URL
+const apiUrl = 'https://dp7.wetechnoids.com/api/companies';
+
+// State
+const companies = ref([]);
+const searchQuery = ref('');
+const ownerFilter = ref('All');
+
+const tabs = ref([
+  'All Companies',
+  'Client',
+  'Vendor',
+  'Supplier',
+  'Consultant',
+  'Government',
+  'Internal',
+  'Not Applicable',
+]);
+
+const filterTabs = tabs.value.slice(1);
+
+// Fetch data
+const fetchCompanies = async () => {
+  try {
+    const response = await axios.get(apiUrl);
+    companies.value = response.data.map(company => ({
+      name: company.company_name,
+      activeProjects: 0, // You can update this dynamically if you have this data
+      archivedProjects: 0, // Likewise
+      type: mapCompanyType(company.company_type),
+    }));
+  } catch (error) {
+    console.error('Error fetching companies:', error);
+  }
+};
+
+// Map company_type number to string
+function mapCompanyType(type) {
+  const typeMap = {
+    1: 'Client',
+    2: 'Vendor',
+    3: 'Supplier',
+    4: 'Consultant',
+    5: 'Government',
+    6: 'Internal',
+    7: 'Not Applicable',
+  };
+  return typeMap[type] || 'Unknown';
+}
+
+// Computed filtering
+const filteredCompanies = computed(() => {
+  return companies.value.filter(company => {
+    const matchesSearch = company.name.toLowerCase().includes(searchQuery.value.toLowerCase());
+    const matchesFilter = ownerFilter.value === 'All' || company.type === ownerFilter.value;
+    return matchesSearch && matchesFilter;
+  });
+});
+
+const handleTabClick = (tab) => {
+  ownerFilter.value = tab === 'All Companies' ? 'All' : tab;
+};
+
+// Lifecycle
+onMounted(() => {
+  fetchCompanies();
+});
+</script>
+
+
+
+
+
+<!-- <script setup>
 import { ref, computed } from 'vue';
 
 // Sample data
@@ -106,4 +183,4 @@ const filteredCompanies = computed(() => {
     return matchesSearch && matchesFilter;
   });
 });
-</script>
+</script> -->
