@@ -103,7 +103,88 @@
     </div>
   </template>
   
+
   <script setup>
+import { ref, computed, onMounted } from 'vue';
+
+const contacts = ref([]);
+const searchQuery = ref('');
+const activeLetter = ref('All');
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+// Fetch contacts from API
+const fetchContacts = async () => {
+  try {
+    const res = await fetch("https://dp7.wetechnoids.com/api/contacts");
+    const data = await res.json();
+
+    // Transform API data to match your display logic
+    contacts.value = data.map((contact) => ({
+      id: contact.contact_id,
+      name: `${contact.contact_first_name} ${contact.contact_last_name}`.trim(),
+      company: contact.contact_company,
+      email: contact.contact_email,
+    }));
+  } catch (error) {
+    console.error("Failed to fetch contacts:", error);
+  }
+};
+
+onMounted(fetchContacts);
+
+// Filter contacts
+const filteredContacts = computed(() => {
+  let filtered = contacts.value;
+  if (searchQuery.value.trim()) {
+    filtered = filtered.filter(c =>
+      c.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      (c.email && c.email.toLowerCase().includes(searchQuery.value.toLowerCase()))
+    );
+  }
+  if (activeLetter.value !== 'All') {
+    filtered = filtered.filter(c => c.name.charAt(0).toUpperCase() === activeLetter.value);
+  }
+  return filtered;
+});
+
+// Group contacts by first letter
+const groupedContacts = computed(() => {
+  const groups = {};
+  alphabet.forEach(letter => {
+    groups[letter] = [];
+  });
+
+  filteredContacts.value.forEach(contact => {
+    const firstLetter = contact.name.charAt(0).toUpperCase();
+    if (!groups[firstLetter]) groups[firstLetter] = [];
+    groups[firstLetter].push(contact);
+  });
+
+  return groups;
+});
+
+// Only include groups with contacts
+const filteredGroupedContacts = computed(() => {
+  const result = {};
+  Object.entries(groupedContacts.value).forEach(([letter, group]) => {
+    if (group.length > 0) {
+      result[letter] = group;
+    }
+  });
+  return result;
+});
+
+function resetSearch() {
+  searchQuery.value = '';
+  activeLetter.value = 'All';
+}
+
+function filterByLetter(letter) {
+  activeLetter.value = letter;
+}
+</script>
+
+  <!-- <script setup>
   import { ref, reactive, computed } from 'vue';
   
   const contacts = reactive([
@@ -176,7 +257,7 @@
   }
   
  
-  </script>
+  </script> -->
   
   <style>
   .custom-scrollbar::-webkit-scrollbar {
