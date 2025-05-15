@@ -184,6 +184,26 @@ function filterByLetter(letter) {
 }
 </script>
 
+  
+  
+  <style>
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+  .custom-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style>
+  
+
+
+
+
+
+
+
   <!-- <script setup>
   import { ref, reactive, computed } from 'vue';
   
@@ -258,15 +278,3 @@ function filterByLetter(letter) {
   
  
   </script> -->
-  
-  <style>
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 0px;
-    background: transparent;
-  }
-  .custom-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  </style>
-  
