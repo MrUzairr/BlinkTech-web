@@ -378,7 +378,6 @@ export default {
 </script>
 
 <style scoped>
-/* Slide-fade animation for the popup */
 .slide-fade-enter-active {
   transition: all 0.3s ease-out;
 }
