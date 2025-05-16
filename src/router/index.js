@@ -7,6 +7,7 @@ import AddProjectView from '@/pages/project/AddProject.vue';
 import AddTaskView from '@/pages/task/Task.vue';
 import AddContactView from '@/pages/contact/AddContactForm.vue';
 import ContactList from '@/pages/contact/ContactList.vue';
+import User from '../pages/user/User.vue';
 
 
 const router = createRouter({
@@ -46,6 +47,7 @@ const router = createRouter({
       name: 'add-tasks',
       component: AddTaskView
     },
+    // Contacts
     {
       path: '/contacts',
       name: 'contacts',
@@ -55,6 +57,12 @@ const router = createRouter({
       path: '/contacts/add',
       name: 'add-contacts',
       component: AddContactView
+    },
+    // Users
+    {
+      path: '/users',
+      name: 'users',
+      component:User
     },
     // Add other routes as needed
   ]
